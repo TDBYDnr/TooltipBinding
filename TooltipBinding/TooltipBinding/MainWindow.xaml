@@ -6,12 +6,41 @@
         xmlns:local="clr-namespace:TooltipBinding"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style x:Key="TooltipStyle" TargetType="ToolTip">
+                <Setter Property="MaxWidth" Value="250"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Polygon Grid.Column="0" Fill="LightBlue" Points="0,25 20,15 20,35"/>
+                                <Border Grid.Column="1" CornerRadius="10" BorderThickness="3" BorderBrush="LightBlue" Background="White">
+                                    <StackPanel Margin="10">
+                                        <TextBlock x:Name="Title" TextAlignment="Left" FontWeight="Bold" FontSize="14"
+                                                   Text="{Binding Tag, RelativeSource={RelativeSource FindAncestor, AncestorType=ToolTip}}"/>
+                                        <TextBlock x:Name="Desc" TextAlignment="Left" FontSize="12" TextWrapping="Wrap"
+                                                   Text="{Binding Content, RelativeSource={RelativeSource FindAncestor, AncestorType=ToolTip}}"/>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+    
     <Grid>
         <Button Content="Push" Width="250" Height="100">
             <Button.ToolTip>
-                <ToolTip Content="Push! Push! Push!">
-                    
-                </ToolTip>
+                <ToolTip Tag="[Push]" Content="Push! Push! Push! Push! Push! Push! Push! Push! Push! Push! Push! Push! Push! Push! Push!" 
+                         Placement="Right" Style="{DynamicResource TooltipStyle}"/>
             </Button.ToolTip>
         </Button>
     </Grid>
